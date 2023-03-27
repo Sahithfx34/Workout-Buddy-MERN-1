@@ -2,6 +2,7 @@ const Workout = require("../models/WorkoutModel")
 const mongoose = require("mongoose")
 
 
+
 //get all workouts
 const getWorkouts = async(req,res)=>{
     const workouts = await Workout.find({}).sort({createdAt:-1})//sorts according to the time new one at the top
@@ -27,6 +28,21 @@ const getWorkout = async(req,res)=>{
 //create new workout
 const createworkout = async(req,res)=>{
     const {title,load,reps} = req.body; //we are getting this due to the use(express.json)
+
+    let emptyFields =[]
+    if(!title){
+        emptyFields.push("title");
+    }
+    if(!load){
+        emptyFields.push("load");
+    }
+    if(!reps){
+        emptyFields.push("reps");
+    }
+    if(emptyFields.length > 0){
+        return res.status(400).json({error: "Please fill in all the fields", emptyFields})
+    }
+
     try{
         const workout = await Workout.create({title,load,reps})
         res.status(200).json(workout)

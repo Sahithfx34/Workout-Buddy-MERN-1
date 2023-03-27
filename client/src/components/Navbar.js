@@ -1,6 +1,5 @@
 const { Link } = require("react-router-dom")
 
-
 const Navbar = ()=>{
     return(
         <header>
