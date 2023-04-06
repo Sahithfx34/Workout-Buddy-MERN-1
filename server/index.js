@@ -1,10 +1,9 @@
 const express = require("express");
 const app = express();
 const workoutRoutes = require("./routes/workout")
+const userRouter = require("./routes/userRouter")
 const mongoose = require("mongoose");
 require("dotenv").config();
-
-
 
 //middleware
 app.use(express.json())
@@ -20,6 +19,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 //routes
 app.use("/api/workout",workoutRoutes)
+app.use("/api/user",userRouter)
 
 
 
